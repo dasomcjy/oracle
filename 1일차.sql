@@ -26,9 +26,12 @@ grant connect, resource to C##HR;
 
 -- 3. 테이블 스페이스를 사용할 권한 부여  , 
     --USERS 테이블 스페이스의 사용량을 무제한 사용할 수 있도록 권한 부여
-alter user C##HR quota unlimited USERS;
+alter user C##HR quota unlimited on USERS;
 
 --3. HR 계정 삭제 - 연결 설정이 되어있는 경우 삭제가 안됨. 연결을 먼저 삭제후 계정 삭제
 drop user C##HR;
 
 show user;
+
+
+select * from tab;
