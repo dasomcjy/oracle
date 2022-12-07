@@ -1,0 +1,6 @@
+서버 - Web Server, Git , FTP ... <== UTF-8
+
+인코딩 : 데이터를 저장하는 방식...
+
+UTF-8 : 1byte ~ 4byte  <== 영문 : 1byte, 한글 : 3byte 
+MS949 : 2byte 	
