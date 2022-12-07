@@ -82,7 +82,7 @@ group by dno )
 select ename 사원이름, salary 급여 , job 직책, dno 부서번호 
 from employee
 where salary > all (select round (avg(salary)) from employee)
-
+order by dno
 
 --10. sub query - 직급이 SALESMAN이 아니면서 면서 급여가 임의의 SalesMan 보다 작은 사원을 출력
          --   SALESMAN 의 최대 값이 1600 보다 작은 사원들을 출력
