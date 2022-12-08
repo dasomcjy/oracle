@@ -33,6 +33,12 @@ create table tb_zipcode (
      
      select * from member;
  
+   insert into member (id, pwd, name , zipcode, address , tel , indate ) 
+   values ( 'fofofo' ,'1234' , 'jason' , '130' , '경기' , '010-1234-1234' , '21/05/02') ;
+   
+   insert into member (id, pwd, name , zipcode, address , tel  ) 
+   values ( 'tatata' ,'1234' , 'hey' , '130' , '경기' , '010-1234-1234' ) ;
+ 
    insert into member values ( 'lalala' ,'1234' , 'jason' , '130' , '경기' , '010-1234-1234', default ) ;
    insert into member values ( 'hahaha' ,'1234' , 'meme' , '140' , '경기' , '010-1111-1234' , default) ;
    insert into member values ( 'gogogo' ,'1234' , 'lora' , '150' , '경기' , '010-2222-1234' , default) ;
@@ -92,5 +98,15 @@ create table tb_zipcode (
   insert into oders values ( 40 , '40' , 'gogogo' , 's' , '100' , 'o', '22/06/21' ) ;
   insert into oders values ( 50 , '40' , 'gogogo' , 's' , '100' , 'o', '22/06/21' ) ;
   
+  create table ABC (
+     idd varchar(16) ,
+     constraint add_idd_member_fk foreign key (idd) references member(id) 
+  );
+  
+  select * from ABC;
+  
+  insert into ABC values ( 'lalala');
+  insert into ABC values ( 'hahaha');
+  insert into ABC values ( 'gogogo');
   
   commit;
