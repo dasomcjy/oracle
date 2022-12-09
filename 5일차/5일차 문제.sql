@@ -134,11 +134,11 @@ create table wine (
     today_code varchar2(6)
     );
 
-insert into wine values ('1' , 'name1', 'a' , 'ABC' , 'A' , 1 ,3000,'10/10/10', '1234' , '100');
-insert into wine values ('2' , 'name2', 'a' , 'BCD' , 'B' , 1 ,default ,'10/10/11', '1234' , '200');
-insert into wine values ('3' , 'name3', 'a' , 'CDE' , 'C' , 1 ,4000,'10/10/12', '5678' , '300');
-insert into wine values ('4' , 'name4', 'a' , 'DEF' , 'D' , 1 ,5000,'10/10/13', '1234' , '400');
-insert into wine values ('5' , 'name5', 'a' , 'EFG' , 'E' , 1 ,3000,'10/10/14', '1234' , '500');
+insert into wine values ('1' , 'name1', null , 'ABC' , 'A' , 1 ,3000,'10/10/10', '1234' , '100');
+insert into wine values ('2' , 'name2', null , 'BCD' , 'B' , 1 ,default ,'10/10/11', '1234' , '200');
+insert into wine values ('3' , 'name3', null , 'CDE' , 'C' , 1 ,4000,'10/10/12', '5678' , '300');
+insert into wine values ('4' , 'name4', null , 'DEF' , 'D' , 1 ,5000,'10/10/13', '1234' , '400');
+insert into wine values ('5' , 'name5', null , 'EFG' , 'E' , 1 ,3000,'10/10/14', '1234' , '500');
 
 
 Alter Table wine
@@ -155,7 +155,7 @@ add constraint wine_today_code_FK foreign key (today_code) references today (tod
 
 select * from wine;
 
-
+drop table wine cascade constraint purge;
 
 
 
