@@ -31,7 +31,7 @@
 --테이블 생성 ( Create Table )
 
 Create Table dept (                        --생성할 테이블 명
-    dno number(2) not null,                --컬럼명 자료형 NULL 허용 여부 
+    dno number(2) not null,                --컬럼명 자료형 NULL 허용 여부 --넘버에는 정수, 실수
     dname varchar2 (4) not null, 
     loc varchar2(13) null
     );
@@ -82,13 +82,18 @@ values (30, 'abc', 'Taegu');
 select *from dept; 
 desc dept ;
 
+--암시적으로 : NULL이 들어감.  <== 컬럼을 선택하지 않을때(LOC입력 안했기 때문에 그 공간에 null 이들어감
 insert into dept (dno, dname)
 values (30, 'abc');
+
+--명시적으로 NULL넣기
+insert into dept 
+values (40 , 'bcd', null); 
 
 commit;
 
 --회원 정보를 저장하는 테이블 생성 
-create table member (
+create table member (                           --파란색으로 표시되면 오류가 생길수도 있으니까  member1 이랑 idx로 바꾸는것이 더 좋다!
      id varchar2(50) not null primary key, 
      pass varchar2(50) not null ,
      addr varchar2(100) null ,
@@ -97,7 +102,10 @@ create table member (
      weight number (5, 2) not null
      );
      
- /* 제약 조건
+ /* 제약 조건 : 데이터의 무결성을 확보하기 위해서 테이블의 컬럼에 부여
+              - 무결성: 오류없는 데이터, 원하는 데이터 
+    -- not null
+    -- Foreign key
     -- Primary key : 테이블에서 하나만 존재할 수 있다.
         --primary key가 적용된 컬럼은 중복된 값을 넣을 수 없다.
         --데이터를 수정할때, 삭제시 조건을 사용하는 컬럼.
@@ -112,6 +120,16 @@ create table member (
     -- NOT NULL : 컬럼에 NULL을 넣을 수 없다.
     
 */
+show user;
+select * from user_constraints;  --현재 접속한 계정에서 생성된 객체의 모든 제약조건을 확인
+
+
+--원하는 테이블의 제약 조건 확인
+
+select * from user_constraints
+where table_name = 'EMPLOYEE' ;
+
+
 
 desc member;
 
