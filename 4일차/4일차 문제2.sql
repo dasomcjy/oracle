@@ -102,7 +102,17 @@ create table tb_zipcode (
      idd varchar(16) ,
      constraint add_idd_member_fk foreign key (idd) references member(id) 
   );
-  
+
+/*  
+  create table BCD (
+     bcbc char(1) ,
+     constraint BCD_bcbc_fk foreign key (bcbc) references products (product_kind)
+ );
+ 
+ 이것은 ... 프라이머리 키나 유니크 키가 아닌 부모 클래스의 참조로 활용할 수 없다!는걸 보여준다..!
+ */
+ 
+ 
   select * from ABC;
   
   insert into ABC values ( 'lalala');
