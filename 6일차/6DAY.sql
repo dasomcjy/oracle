@@ -201,15 +201,129 @@ from employee e, department d, salgrade s
 where e.dno = d.dno                     
 and salary between losal and hisal ;
 
+/*
+        INNER JOIN : 90% , 두 테이블에서 공통의 내용을 출력 ( e.dno = d.dno )
+         -- EQUI JOIN, Natural JOIN: Oracle
+         -- INNER JOIN : ANSI 호환 ( 모든 DBMS 에서 공통으로 사용되는 구문)
+*/
+
+/* SELF JOIN : 자신의 테이블(원본)을 다시한번 가상의 테이블(원본을 복사한 테이블) JOIN 함.
+        -- 자신의 테이블을 다시한번 조인 
+        -- 반드시 테이블을 별칭이름을 만들고 별칭이름을 사용해서 JOIN
+        -- 회사의 조직도를 SQL 구문으로 출력할때, 직급 상사가 누군지 출력할때 주로사용.
+*/
+
+-- 관리자(직속상관)가 7788인 사원들 정보  eno, ename, manager 
+select eno 사원번호, ename 사원명, manager 직속상관
+from employee
+where manager = 7788
+order by ename asc;
+
+-- 직속상관의 정보를 출력 
+select eno 사원번호, ename 사원명 , manager 직속상관
+from employee 
+where eno = 7788;
 
 
+--
+
+select * from employee;
+
+-- SELF JOIN 을 사용해서 자신의 테이블을 JOIN해서 사원에 대한 직속상관 정보를 한번에 출력
+
+-- EQUIE JOIN을 사용해서 SELF JOIN 출력
+
+select e.ename 사원이름, e.manager 직속상관번호, m.eno 직속상관번호 , m.ename 직속상관이름 
+from employee e , employee m   -- 두 테이블 모두 employee 테이블 , 반드시 별칭이름을 사용해야함!!(약칭)
+where e.manager = m.eno 
+order by e.ename asc;
 
 
+select eno , ename , manager , eno, ename, manager
+from employee; 
 
 
+select * from employee
+order by ename asc;
+
+
+-- ANSI 호환 구문을 사용해서 SELF JOIN 
+-- employee 테이블을 SELF JOIN해서 사워에 대한 직속 상관을 출력 
+select e.ename || ' 의 직속 상관은 '   ||  m.ename || '입니다' 
+from employee e INNER JOIN employee m  --INNER는 생략가능
+on e.manager = m.eno 
+order by e.ename asc;
+
+select eno, ename, manager , eno, ename, manager
+from employee;
+
+select * from employee;    
+
+/* Outer JOIN : 
+     -- 특정 컬럼의 내용은 두 테이블에 공통적이지 않는 내용도 출력해야 할때 
+     -- NULL 출력 
+     -- + 를 사용해서 Outer Join : Oracle 
+     -- Ansi 호환 구문을 사용할 때는 : Outer Join 구문을 사용함.
+            -- LEFT OUTER JOIN , LEFT JOIN
+            -- RIGHT OUTER JOIN, RIGHT JOIN
+            -- FULL OUTER JOIN, FULL JOIN
+*/
+
+-- EQUI JOIN 을 사용하여 INNER JOIN 
+
+select e.ename || ' 의 직속 상관은  ' || m.ename || '입니다.'
+from employee e, employee m
+where e.manager = m.eno  -- e.manager와 m.eno의 값이 일치하는 내용만 출력됨. (13개 레코드출력)
+
+
+-- EQUI JOIN 을 사용하여 Outer JOIN       
+select e.ename || ' 의 직속 상관은  ' || m.ename || '입니다.'
+from employee e, employee m
+where e.manager = m.eno (+)    -- m.eno  컬럼의 내용은 e.manager의 값이 없더라도 무조건 출력
+   
+select eno, ename , manager , eno, ename, manager 
+from employee ;
+
+-- ANSI 호환에서 Outer JOIN 
+    -- LEFT OUTER JOIN , LEFT JOIN     : 왼쪽 테이블의 내용은 매칭되지 않더라도 무조건 출력
+    -- RIGTH OUTER JOIN , RIGHT JOIN   : 오른쪽 테이블의 내용은 매칭되지 않더라도 무조건 출력
+    -- FULL OUTER JOIN , FULL JOIN     : 왼쪽, 오른쪽 모두 매칭되지 않는 내용도 무조건 출력
     
-    
+  select e.ename || ' 의 직속 상관은  ' || m.ename || '입니다'
+  from employee e Left OUTER JOIN employee m  -- Outer은 생략해도 됨!
+  on e.manager = m.eno 
+  order by e.ename asc ; 
+  
+  select e.ename || ' 의 직속 상관은  ' || m.ename || '입니다'
+  from employee e RIGHT Outer JOIN employee m
+  on e.manager = m.eno 
+  order by e.ename asc ; 
+
+  select e.ename || ' 의 직속 상관은  ' || m.ename || '입니다'
+  from employee e FULL Outer JOIN employee m
+  on e.manager = m.eno 
+  order by e.ename asc ; 
+  
+  /* 카디시안 곱 : 왼쪽 테이블의 하나의 레코드에서 오른쪽 테이블의 모든 레코드를 곱하다.
+    employee : 14
+    department : 4
+    카디시안 곱 : 14 * 4 = 56 레코드 출력
+  */
+
+select count (*) from employee;
+select count (*) from department;
+
+-- employee(14) , department (4) 카디시안 곱 : 56
+select * 
+from employee , department 
 
 
+-- employee(14) , department (4) 카디시안 곱 : 56
+
+-- INNER JOIN : e.dno = d.dno 가 매칭되는 내용만 출력
+    -- EQUI JOIN : Oracle 구문으로 출력
+select *
+from employee e, department d 
+where e.dno = d.dno (+)
 
 
