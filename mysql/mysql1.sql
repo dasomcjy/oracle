@@ -207,6 +207,11 @@ select * from buyTbl;
  select name 이름, birthYear 생년, prodName 구매물품, price 가격
  from userTb1 u left outer JOIN buyTbl b
  on u.userID = b.userID;
+ 
+ 
+ SELECT NAME, BIRTHYEAR, PRODNAME, AMOUNT,PRICE
+FROM USERTBL U JOIN BUYTBL B
+ON U.USERID = B.USERID;
 
 -- 구매물품을 그룹핑해서 구매물품별 총구매액을 출력 
  select prodName 구매물품, sum(price) 가격 , count(*)
@@ -214,7 +219,9 @@ select * from buyTbl;
  on u.userID = b.userID
  group by prodName;
 
-
+SELECT  PRODNAME, SUM(PRICE * AMOUNT) 
+FROM BUYTBL
+GROUP BY PRODNAME;
 
 -- 제일구매액이 많은 사용자
  select name 이름 , sum(price*amount) 총구매액 
@@ -226,6 +233,18 @@ select * from buyTbl;
  on u.userID = b.userID
  group by name );
  
+ ---
+
+SELECT SUM(PRICE * AMOUNT) 총구매액 , USERID
+FROM BUYTBL
+GROUP BY USERID
+ORDER BY 총구매액 DESC
+LIMIT 1;
+
+select b.userID , sum(price * amount),rank() over (order by sum(price * amount) desc)
+from userTbl u join buyTbl b
+on u.userID = b.userID
+group by b.userID ;
 
  
 
@@ -235,4 +254,11 @@ select * from buyTbl;
  from userTb1 u left outer JOIN buyTbl b
  on u.userID = b.userID
  where prodName is null;
+ 
+ --
+ 
+ SELECT U.USERID,U.NAME ,prodName 구매물품, price 가격
+FROM buyTBL B RIGHT JOIN userTBL U
+ON B.userID = U.userID
+WHERE B.USERID IS NULL;
     
